@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Mengaji Al-Qur'an Surah Al-A'la - Kelas 6 SD</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fredoka@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/plus-jakarta-sans@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/amiri@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --primary:#059669;
+  --primary-light:#10B981;
+  --primary-dark:#047857;
+  --gold:#F59E0B;
+  --gold-light:#FCD34D;
+  --blue:#3B82F6;
+  --rose:#F43F5E;
+  --bg:#FEF9F3;
+  --bg-2:#F0FDF4;
+  --ink:#1E293B;
+  --muted:#64748B;
+  --correct:#10B981;
+  --wrong:#EF4444;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+h1,h2,h3,h4,.display{font-family:'Fredoka',sans-serif;font-weight:600}
+.arabic{font-family:'Amiri',serif;direction:rtl;line-height:2.2;font-size:clamp(28px,5vw,44px);color:#065f46}
+.screen{display:none;min-height:100vh;animation:fadeIn .5s ease}
+.screen.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.8);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,.6)}50%{box-shadow:0 0 0 18px rgba(16,185,129,0)}}
+.pop{animation:pop .4s ease}
+.bounce{animation:bounce 2s ease infinite}
+.shake{animation:shake .4s ease}
+.float{animation:float 3s ease infinite}
+.pulse{animation:pulse 2s ease infinite}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.6rem;border-radius:1rem;font-weight:700;font-family:'Fredoka',sans-serif;border:none;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;font-size:1rem;min-height:56px;min-width:56px}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:0 6px 0 #065f46,0 10px 20px rgba(5,150,105,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 0 #065f46,0 12px 24px rgba(5,150,105,.4)}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#D97706);color:#fff;box-shadow:0 6px 0 #92400E,0 10px 20px rgba(245,158,11,.3)}
+.btn-ghost{background:#fff;color:var(--primary-dark);border:2px solid var(--primary)}
+.btn-ghost:hover{background:var(--primary);color:#fff}
+.card{background:#fff;border-radius:1.5rem;box-shadow:0 10px 30px rgba(15,23,42,.08);padding:1.5rem;border:2px solid rgba(16,185,129,.1)}
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .8rem;border-radius:999px;background:rgba(16,185,129,.12);color:var(--primary-dark);font-size:.85rem;font-weight:600}
+.cover-bg{
+  background:
+    radial-gradient(circle at 20% 20%,rgba(252,211,77,.3),transparent 50%),
+    radial-gradient(circle at 80% 30%,rgba(59,130,246,.2),transparent 50%),
+    linear-gradient(135deg,#ECFDF5 0%,#F0F9FF 50%,#FFFBEB 100%);
+  position:relative;overflow:hidden
+}
+.cover-bg::before{content:"";position:absolute;inset:0;background-image:
+  radial-gradient(circle at 10% 90%,rgba(16,185,129,.1) 2px,transparent 3px),
+  radial-gradient(circle at 90% 80%,rgba(245,158,11,.1) 2px,transparent 3px),
+  radial-gradient(circle at 50% 10%,rgba(59,130,246,.1) 2px,transparent 3px);
+  background-size:80px 80px,100px 100px,60px 60px;pointer-events:none}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:1rem .5rem;background:#fff;border-radius:1rem;box-shadow:0 6px 16px rgba(15,23,42,.06);border:2px solid transparent;cursor:pointer;transition:all .25s ease;min-height:100px;font-weight:600;color:var(--ink)}
+.nav-btn:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 12px 24px rgba(16,185,129,.2)}
+.nav-btn .ico{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:#fff}
+.quiz-opt{display:block;width:100%;padding:1rem 1.2rem;background:#fff;border:2px solid #E2E8F0;border-radius:1rem;text-align:left;cursor:pointer;transition:all .2s ease;margin-bottom:.7rem;font-size:1rem;min-height:60px;font-weight:500}
+.quiz-opt:hover{border-color:var(--primary);transform:translateX(4px)}
+.quiz-opt.correct{background:#D1FAE5;border-color:var(--correct);color:#065f46}
+.quiz-opt.wrong{background:#FEE2E2;border-color:var(--wrong);color:#991B1B}
+.quiz-opt:disabled{cursor:not-allowed}
+.drag-item{padding:.8rem 1.2rem;background:#fff;border:2px dashed var(--primary);border-radius:.8rem;cursor:grab;user-select:none;transition:all .2s;font-weight:600}
+.drag-item:active{cursor:grabbing}
+.drag-item.dragging{opacity:.5;transform:scale(1.05)}
+.drop-zone{min-height:70px;border:2px dashed #CBD5E1;border-radius:.8rem;padding:.5rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;background:rgba(241,245,249,.5);transition:all .2s}
+.drop-zone.over{border-color:var(--primary);background:rgba(16,185,129,.08)}
+.progress-bar{height:10px;background:#E2E8F0;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary-light),var(--gold));border-radius:999px;transition:width .4s ease}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .9rem;border-radius:999px;font-weight:700;font-size:.9rem}
+.topbar{position:sticky;top:0;z-index:40;background:rgba(254,249,243,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(16,185,129,.12);padding:.75rem 1rem}
+.ayat-block{background:linear-gradient(135deg,#ECFDF5,#F0FDF4);border:2px solid rgba(16,185,129,.2);border-radius:1.2rem;padding:1.5rem;text-align:center}
+.ayat-num{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--gold);color:#fff;font-weight:700;font-size:.85rem;margin:0 .2rem}
+.tab{padding:.7rem 1.2rem;background:#fff;border:2px solid #E2E8F0;border-radius:999px;cursor:pointer;font-weight:600;transition:all .2s;white-space:nowrap}
+.tab.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.match-card{padding:1rem;background:#fff;border:2px solid #E2E8F0;border-radius:.8rem;cursor:pointer;text-align:center;min-height:80px;display:flex;align-items:center;justify-content:center;font-weight:600;transition:all .2s}
+.match-card.selected{border-color:var(--gold);background:#FEF3C7;transform:scale(1.03)}
+.match-card.matched{background:#D1FAE5;border-color:var(--correct);opacity:.7;cursor:default}
+.star{font-size:2rem;color:#CBD5E1}
+.star.filled{color:var(--gold)}
+input[type=text],textarea{width:100%;padding:.9rem 1rem;border:2px solid #E2E8F0;border-radius:.8rem;font-size:1rem;font-family:inherit;transition:border .2s}
+input[type=text]:focus,textarea:focus{outline:none;border-color:var(--primary)}
+.mascot{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#FCD34D,#F59E0B);display:flex;align-items:center;justify-content:center;font-size:3.5rem;box-shadow:0 10px 30px rgba(245,158,11,.3)}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:1.5rem;padding:2rem;max-width:500px;width:100%;animation:pop .3s ease}
+.confetti{position:fixed;width:10px;height:10px;pointer-events:none;z-index:200}
+@media (max-width:640px){
+  .arabic{font-size:28px}
+  .btn{font-size:.95rem;padding:.75rem 1.2rem;min-height:50px}
+  .nav-btn{min-height:90px;padding:.75rem .3rem}
+  .nav-btn .ico{width:42px;height:42px;font-size:1.1rem}
+  .card{padding:1.2rem}
+  .mascot{width:90px;height:90px;font-size:2.5rem}
+}
+@media (min-width:1200px){
+  .container-app{max-width:1100px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR (hidden on cover) -->
+<div id="topbar" class="topbar" style="display:none">
+  <div class="container-app flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <button onclick="goHome()" class="btn btn-ghost" style="padding:.5rem .9rem;min-height:44px"><i class="fa-solid fa-house"></i></button>
+      <div class="hidden sm:block">
+        <div class="text-xs text-slate-500">PAI Kelas 6 • Bab 6</div>
+        <div class="font-bold text-sm">Surah Al-A'la</div>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="pill"><i class="fa-solid fa-star text-yellow-500"></i><span id="totalCoins">0</span></div>
+      <button onclick="show('petunjuk')" class="btn btn-ghost" style="padding:.5rem .9rem;min-height:44px"><i class="fa-solid fa-circle-question"></i></button>
+    </div>
+  </div>
+</div>
+
+<main class="container-app px-4 pb-10">
+
+<!-- ============== COVER ============== -->
+<section id="cover" class="screen active">
+  <div class="cover-bg min-h-screen flex items-center py-8">
+    <div class="container-app grid md:grid-cols-2 gap-8 items-center relative z-10">
+      <div class="text-center md:text-left">
+        <div class="pill mb-4"><i class="fa-solid fa-book-quran"></i> Pendidikan Agama Islam</div>
+        <h1 class="display text-4xl md:text-6xl leading-tight mb-3" style="color:#065F46">
+          Mengaji Al-Qur'an<br>
+          <span style="background:linear-gradient(135deg,var(--gold),#D97706);-webkit-background-clip:text;background-clip:text;color:transparent">Surah Al-A'la</span>
+        </h1>
+        <p class="text-slate-600 text-lg mb-2">Bab 6 • SD/MI Kelas VI (Fase C)</p>
+        <p class="text-slate-500 mb-6"><i class="fa-solid fa-chalkboard-user"></i> Disusun oleh: <b>M. Ripani, S.Pd</b></p>
+        <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-6">
+          <span class="pill"><i class="fa-solid fa-book-open"></i> Membaca</span>
+          <span class="pill"><i class="fa-solid fa-pen"></i> Menulis</span>
+          <span class="pill"><i class="fa-solid fa-lightbulb"></i> Pesan Pokok</span>
+          <span class="pill"><i class="fa-solid fa-brain"></i> Menghafal</span>
+        </div>
+        <button onclick="startLearning()" class="btn btn-primary text-xl pulse" style="padding:1.1rem 2.5rem">
+          <i class="fa-solid fa-play"></i> MULAI BELAJAR
+        </button>
+        <div class="mt-4 text-sm text-slate-500">
+          <i class="fa-solid fa-clock"></i> 4 × 35 menit • <i class="fa-solid fa-gamepad"></i> Interaktif & Menyenangkan
+        </div>
+      </div>
+      <div class="relative flex justify-center">
+        <div class="relative">
+          <img id="coverImg" src="" alt="cover" class="rounded-3xl shadow-2xl float" style="max-width:460px;width:100%;border:6px solid #fff">
+          <div class="absolute -top-4 -right-4 bg-yellow-400 rounded-2xl px-4 py-2 shadow-lg bounce" style="transform:rotate(8deg)">
+            <div class="text-xs font-bold text-yellow-900">اَلْأَعْلَى</div>
+            <div class="text-[10px] text-yellow-800">Yang Maha Tinggi</div>
+          </div>
+          <div class="absolute -bottom-4 -left-4 bg-emerald-500 rounded-2xl px-4 py-2 shadow-lg" style="transform:rotate(-6deg)">
+            <div class="text-white text-xs font-bold"><i class="fa-solid fa-star"></i> 87</div>
+            <div class="text-[10px] text-emerald-100">Urutan Surah</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MENU UTAMA ============== -->
+<section id="menu" class="screen">
+  <div class="py-8">
+    <div class="text-center mb-8">
+      <div class="flex justify-center mb-3"><div class="mascot">👦🏻</div></div>
+      <h2 class="display text-3xl md:text-4xl text-emerald-800">Assalamu'alaikum! 👋</h2>
+      <p class="text-slate-600 mt-2 max-w-xl mx-auto">Halo teman-teman! Aku <b>Ahmad</b>. Hari ini kita akan belajar Surah Al-A'la yuk! Pilih menu di bawah ini.</p>
+    </div>
+
+    <div class="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-4 mb-8">
+      <button onclick="show('apersepsi')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#10B981,#059669)"><i class="fa-solid fa-house"></i></div><span>Beranda</span></button>
+      <button onclick="show('materi');setMateriTab(0)" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8)"><i class="fa-solid fa-book"></i></div><span>Materi</span></button>
+      <button onclick="show('aktivitas')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#F59E0B,#D97706)"><i class="fa-solid fa-bullseye"></i></div><span>Aktivitas</span></button>
+      <button onclick="show('game')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#EC4899,#BE185D)"><i class="fa-solid fa-gamepad"></i></div><span>Game</span></button>
+      <button onclick="show('latihan')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#8B5CF6,#6D28D9)"><i class="fa-solid fa-pen-to-square"></i></div><span>Latihan</span></button>
+      <button onclick="startQuiz()" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#F43F5E,#BE123C)"><i class="fa-solid fa-circle-question"></i></div><span>Kuis</span></button>
+      <button onclick="show('hasil')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#F59E0B,#B45309)"><i class="fa-solid fa-trophy"></i></div><span>Hasil</span></button>
+      <button onclick="show('refleksi')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#06B6D4,#0E7490)"><i class="fa-solid fa-heart"></i></div><span>Refleksi</span></button>
+      <button onclick="show('petunjuk')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#64748B,#334155)"><i class="fa-solid fa-list"></i></div><span>Petunjuk</span></button>
+      <button onclick="show('penutup')" class="nav-btn"><div class="ico" style="background:linear-gradient(135deg,#14B8A6,#0F766E)"><i class="fa-solid fa-flag-checkered"></i></div><span>Penutup</span></button>
+    </div>
+
+    <div class="card">
+      <h3 class="display text-xl mb-3 text-emerald-800"><i class="fa-solid fa-route"></i> Progres Belajarmu</h3>
+      <div class="progress-bar mb-2"><div id="menuProgress" class="progress-fill" style="width:0%"></div></div>
+      <div class="flex justify-between text-sm text-slate-500">
+        <span id="progressText">0 dari 4 materi selesai</span>
+        <span id="progressPct">0%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== APERSEPSI ============== -->
+<section id="apersepsi" class="screen">
+  <div class="py-6">
+    <div class="card mb-5 bg-gradient-to-br from-emerald-50 to-yellow-50">
+      <div class="flex items-start gap-4 flex-wrap">
+        <div class="mascot" style="width:90px;height:90px;font-size:2.5rem">🤔</div>
+        <div class="flex-1 min-w-[200px]">
+          <div class="pill mb-2"><i class="fa-solid fa-lightbulb"></i> Pertanyaan Pemantik</div>
+          <h2 class="display text-2xl md:text-3xl text-emerald-800 mb-2">Tahukah Kamu? 🌙</h2>
+          <p class="text-slate-700 text-lg leading-relaxed">
+            Setiap hari kita mendengar imam salat membaca surah pendek. Salah satu surah yang <b>paling sering dibaca oleh Rasulullah ﷺ</b> saat salat Jum'at, salat Hari Raya, dan salat Witir adalah <b>Surah Al-A'la</b>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 mb-5">
+      <div class="card">
+        <h3 class="display text-lg mb-3 text-emerald-700"><i class="fa-solid fa-circle-info text-blue-500"></i> Fakta Menarik</h3>
+        <ul class="space-y-2 text-slate-700">
+          <li><i class="fa-solid fa-check text-emerald-500"></i> Surah ke-<b>87</b> dalam Al-Qur'an</li>
+          <li><i class="fa-solid fa-check text-emerald-500"></i> Terdiri dari <b>19 ayat</b></li>
+          <li><i class="fa-solid fa-check text-emerald-500"></i> Termasuk surah <b>Makiyah</b></li>
+          <li><i class="fa-solid fa-check text-emerald-500"></i> Artinya: <b>"Yang Paling Tinggi"</b></li>
+        </ul>
+      </div>
+      <div class="card bg-gradient-to-br from-yellow-50 to-orange-50">
+        <h3 class="display text-lg mb-3 text-orange-700"><i class="fa-solid fa-question"></i> Mari Berpikir!</h3>
+        <p class="text-slate-700 mb-3">Coba renungkan bersama Ahmad:</p>
+        <div class="space-y-2 text-sm">
+          <div class="bg-white rounded-lg p-3 border-l-4 border-orange-400">💭 Apa yang kamu rasakan saat membaca Al-Qur'an?</div>
+          <div class="bg-white rounded-lg p-3 border-l-4 border-orange-400">🌟 Mengapa Allah memerintahkan kita bertasbih?</div>
+          <div class="bg-white rounded-lg p-3 border-l-4 border-orange-400">📖 Apa pesan penting dari Surah Al-A'la?</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="display text-lg mb-3"><i class="fa-solid fa-video text-red-500"></i> Tonton Video Pembelajaran</h3>
+      <div class="aspect-video rounded-xl overflow-hidden">
+        <iframe src="https://www.youtube.com/embed/mUkNdaG8NBM" frameborder="0" allowfullscreen class="w-full h-full"></iframe>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-5 justify-between">
+      <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+      <button onclick="show('materi');setMateriTab(0)" class="btn btn-primary">Lanjut ke Materi <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MATERI ============== -->
+<section id="materi" class="screen">
+  <div class="py-6">
+    <div class="flex items-center gap-3 mb-5">
+      <div class="mascot" style="width:70px;height:70px;font-size:2rem">📖</div>
+      <div>
+        <h2 class="display text-2xl md:text-3xl text-emerald-800">Materi Pembelajaran</h2>
+        <p class="text-slate-500 text-sm">Pilih bagian yang ingin kamu pelajari</p>
+      </div>
+    </div>
+
+    <div class="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1" id="materiTabs">
+      <button class="tab active" onclick="setMateriTab(0)"><i class="fa-solid fa-book-open"></i> Membaca</button>
+      <button class="tab" onclick="setMateriTab(1)"><i class="fa-solid fa-pen"></i> Menulis</button>
+      <button class="tab" onclick="setMateriTab(2)"><i class="fa-solid fa-lightbulb"></i> Pesan Pokok</button>
+      <button class="tab" onclick="setMateriTab(3)"><i class="fa-solid fa-brain"></i> Menghafal</button>
+    </div>
+
+    <!-- Materi 0: Membaca -->
+    <div class="materiPane card">
+      <div class="flex items-center gap-2 mb-3"><span class="pill bg-blue-100 text-blue-700"><i class="fa-solid fa-book-open"></i> A</span><h3 class="display text-xl md:text-2xl text-emerald-800">Membaca Q.S. Al-A'la</h3></div>
+      
+      <div class="ayat-block mb-4">
+        <div class="text-xs text-slate-500 mb-2">Bismillahirrahmanirrahim</div>
+        <div class="arabic leading-loose">
+          سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى <span class="ayat-num">١</span>
+          الَّذِي خَلَقَ فَسَوَّىٰ <span class="ayat-num">٢</span>
+          وَالَّذِي قَدَّرَ فَهَدَىٰ <span class="ayat-num">٣</span>
+          وَالَّذِي أَخْرَجَ الْمَرْعَىٰ <span class="ayat-num">٤</span>
+          فَجَعَلَهُ غُثَاءً أَحْوَىٰ <span class="ayat-num">٥</span>
+          سَنُقْرِئُكَ فَلَا تَنسَىٰ <span class="ayat-num">٦</span>
+          إِلَّا مَا شَاءَ اللَّهُ ۚ إِنَّهُ يَعْلَمُ الْجَهْرَ وَمَا يَخْفَىٰ <span class="ayat-num">٧</span>
+          وَنُيَسِّرُكَ لِلْيُسْرَىٰ <span class="ayat-num">٨</span>
+          فَذَكِّرْ إِن نَّفَعَتِ الذِّكْرَىٰ <span class="ayat-num">٩</span>
+          سَيَذَّكَّرُ مَن يَخْشَىٰ <span class="ayat-num">١٠</span>
+          وَيَتَجَنَّبُهَا الْأَشْقَى <span class="ayat-num">١١</span>
+          الَّذِي يَصْلَى النَّارَ الْكُبْرَىٰ <span class="ayat-num">١٢</span>
+          ثُمَّ لَا يَمُوتُ فِيهَا وَلَا يَحْيَىٰ <span class="ayat-num">١٣</span>
+          قَدْ أَفْلَحَ مَن تَزَكَّىٰ <span class="ayat-num">١٤</span>
+          وَذَكَرَ اسْمَ رَبِّهِ فَصَلَّىٰ <span class="ayat-num">١٥</span>
+          بَلْ تُؤْثِرُونَ الْحَيَاةَ الدُّنْيَا <span class="ayat-num">١٦</span>
+          وَالْآخِرَةُ خَيْرٌ وَأَبْقَىٰ <span class="ayat-num">١٧</span>
+          إِنَّ هٰذَا لَفِي الصُّحُفِ الْأُولَىٰ <span class="ayat-num">١٨</span>
+          صُحُفِ إِبْرَاهِيمَ وَمُوسَىٰ <span class="ayat-num">١٩</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-3 mb-4">
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 rounded-lg p-4">
+          <h4 class="font-bold text-yellow-900 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Hati-hati Kesalahan!</h4>
+          <ul class="text-sm text-slate-700 space-y-1">
+            <li>❌ Menambah hamzah di akhir ayat</li>
+            <li>❌ Salah makhraj huruf (ث → س/ش)</li>
+            <li>❌ Tidak membaca tasydid huruf صُ pada ayat 18</li>
+          </ul>
+        </div>
+        <div class="bg-emerald-50 border-l-4 border-emerald-400 rounded-lg p-4">
+          <h4 class="font-bold text-emerald-900 mb-2"><i class="fa-solid fa-circle-check"></i> Tips Membaca Benar</h4>
+          <ul class="text-sm text-slate-700 space-y-1">
+            <li>✅ Perhatikan makharijul huruf</li>
+            <li>✅ Baca dengan tartil & tajwid</li>
+            <li>✅ Awali dengan ta'awudz & basmalah</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 rounded-xl p-4">
+        <h4 class="font-bold text-blue-900 mb-2"><i class="fa-solid fa-microphone"></i> Aktivitas Membaca</h4>
+        <p class="text-sm text-slate-700 mb-3">Bacalah Q.S. Al-A'la berulang-ulang. Minta 3 teman menyimak dan beri nilai (4=sangat lancar, 3=lancar, 2=kurang lancar, 1=tidak lancar).</p>
+        <button onclick="show('aktivitas')" class="btn btn-primary"><i class="fa-solid fa-play"></i> Mulai Aktivitas</button>
+      </div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+        <button onclick="setMateriTab(1)" class="btn btn-primary">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Materi 1: Menulis -->
+    <div class="materiPane card" style="display:none">
+      <div class="flex items-center gap-2 mb-3"><span class="pill bg-purple-100 text-purple-700"><i class="fa-solid fa-pen"></i> B</span><h3 class="display text-xl md:text-2xl text-emerald-800">Menulis Q.S. Al-A'la</h3></div>
+
+      <div class="bg-blue-50 rounded-xl p-4 mb-4">
+        <h4 class="font-bold text-blue-900 mb-2"><i class="fa-solid fa-pen-fancy"></i> Cara Menulis Arab yang Benar</h4>
+        <ul class="text-sm text-slate-700 space-y-1">
+          <li>✍️ Dimulai dari <b>kanan ke kiri</b></li>
+          <li>✍️ Perhatikan bentuk huruf yang naik, turun, dan mendatar</li>
+          <li>✍️ Letakkan harakat dengan tepat</li>
+        </ul>
+      </div>
+
+      <div class="ayat-block mb-4">
+        <div class="text-xs text-slate-500 mb-2">Contoh Ayat 1</div>
+        <div class="arabic text-4xl md:text-5xl">سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى</div>
+      </div>
+
+      <div class="bg-yellow-50 rounded-xl p-4 mb-4">
+        <h4 class="font-bold text-yellow-900 mb-2"><i class="fa-solid fa-pencil"></i> Aktivitas Menulis</h4>
+        <p class="text-sm text-slate-700 mb-3">Tulislah Q.S. Al-A'la di kertas A4 dengan tulisan Arab yang benar dan rapi. Kumpulkan kepada guru sebagai portofolio.</p>
+        <p class="text-xs text-slate-500"><i class="fa-solid fa-info-circle"></i> Awali dengan membaca basmalah.</p>
+      </div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="setMateriTab(0)" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Sebelumnya</button>
+        <button onclick="setMateriTab(2)" class="btn btn-primary">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Materi 2: Pesan Pokok -->
+    <div class="materiPane card" style="display:none">
+      <div class="flex items-center gap-2 mb-3"><span class="pill bg-orange-100 text-orange-700"><i class="fa-solid fa-lightbulb"></i> C</span><h3 class="display text-xl md:text-2xl text-emerald-800">Pesan Pokok Q.S. Al-A'la</h3></div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-4 border-l-4 border-emerald-500">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold">1</div>
+            <h4 class="font-bold text-emerald-900">Perintah Bertasbih</h4>
+          </div>
+          <p class="text-sm text-slate-700">Menyucikan nama Allah Yang Maha Tinggi. Berzikir itu ringan diucapkan, berat timbangan pahalanya.</p>
+          <div class="text-xs text-emerald-700 mt-2"><i class="fa-solid fa-book-quran"></i> Ayat 1</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border-l-4 border-blue-500">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">2</div>
+            <h4 class="font-bold text-blue-900">Kesempurnaan Ciptaan Allah</h4>
+          </div>
+          <p class="text-sm text-slate-700">Allah menciptakan & menyempurnakan alam semesta. Al-Qur'an sebagai petunjuk manusia.</p>
+          <div class="text-xs text-blue-700 mt-2"><i class="fa-solid fa-book-quran"></i> Ayat 2-5</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 border-l-4 border-yellow-500">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold">3</div>
+            <h4 class="font-bold text-yellow-900">Perintah Berdakwah</h4>
+          </div>
+          <p class="text-sm text-slate-700">Saling memberi peringatan kebaikan (<i>Amar Makruf Nahi Mungkar</i>).</p>
+          <div class="text-xs text-yellow-700 mt-2"><i class="fa-solid fa-book-quran"></i> Ayat 9-13</div>
+        </div>
+
+        <div class="bg-gradient-to-br from-rose-50 to-rose-100 rounded-xl p-4 border-l-4 border-rose-500">
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-10 h-10 rounded-full bg-rose-500 flex items-center justify-center text-white font-bold">4</div>
+            <h4 class="font-bold text-rose-900">Jangan Hanya Mengejar Dunia</h4>
+          </div>
+          <p class="text-sm text-slate-700">Akhirat lebih baik dan lebih kekal. Jadikan dunia sarana menuju akhirat.</p>
+          <div class="text-xs text-rose-700 mt-2"><i class="fa-solid fa-book-quran"></i> Ayat 16-17</div>
+        </div>
+      </div>
+
+      <div class="bg-purple-50 rounded-xl p-4 mt-4">
+        <h4 class="font-bold text-purple-900 mb-2"><i class="fa-solid fa-quote-left"></i> Renungan</h4>
+        <p class="text-sm text-slate-700 italic">"Dan carilah (pahala) negeri akhirat dengan apa yang telah dianugerahkan Allah kepadamu, tetapi janganlah kamu lupakan bagianmu di dunia..." <b>(Q.S. Al-Qasas: 77)</b></p>
+      </div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="setMateriTab(1)" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Sebelumnya</button>
+        <button onclick="setMateriTab(3)" class="btn btn-primary">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Materi 3: Menghafal -->
+    <div class="materiPane card" style="display:none">
+      <div class="flex items-center gap-2 mb-3"><span class="pill bg-pink-100 text-pink-700"><i class="fa-solid fa-brain"></i> D</span><h3 class="display text-xl md:text-2xl text-emerald-800">Menghafal Q.S. Al-A'la</h3></div>
+
+      <div class="grid md:grid-cols-2 gap-3 mb-4">
+        <div class="bg-emerald-50 rounded-xl p-4 flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold shrink-0">1</div>
+          <div><h4 class="font-bold text-emerald-900">Bersuci</h4><p class="text-xs text-slate-700">Berwudhu sebelum menghafal Al-Qur'an.</p></div>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4 flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold shrink-0">2</div>
+          <div><h4 class="font-bold text-blue-900">Berniat</h4><p class="text-xs text-slate-700">Niat ikhlas karena Allah Swt.</p></div>
+        </div>
+        <div class="bg-yellow-50 rounded-xl p-4 flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-white font-bold shrink-0">3</div>
+          <div><h4 class="font-bold text-yellow-900">Ulangi</h4><p class="text-xs text-slate-700">Baca ayat satu-satu berulang kali.</p></div>
+        </div>
+        <div class="bg-rose-50 rounded-xl p-4 flex gap-3">
+          <div class="w-10 h-10 rounded-full bg-rose-500 flex items-center justify-center text-white font-bold shrink-0">4</div>
+          <div><h4 class="font-bold text-rose-900">Praktik</h4><p class="text-xs text-slate-700">Baca dalam salat & minta teman menyimak.</p></div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-br from-yellow-100 to-orange-100 rounded-xl p-4">
+        <h4 class="font-bold text-orange-900 mb-2"><i class="fa-solid fa-puzzle-piece"></i> Permainan Puzzle Ayat</h4>
+        <p class="text-sm text-slate-700 mb-3">Susun potongan ayat Q.S. Al-A'la bersama teman hingga menjadi surah yang utuh!</p>
+        <button onclick="show('game')" class="btn btn-gold"><i class="fa-solid fa-play"></i> Main Game Puzzle</button>
+      </div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="setMateriTab(2)" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Sebelumnya</button>
+        <button onclick="completeMateri();show('aktivitas')" class="btn btn-primary">Selesai, ke Aktivitas <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== AKTIVITAS (Drag & Drop Susun Ayat) ============== -->
+<section id="aktivitas" class="screen">
+  <div class="py-6">
+    <div class="card mb-5">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="mascot" style="width:70px;height:70px;font-size:2rem">🎯</div>
+        <div>
+          <h2 class="display text-2xl text-emerald-800">Aktivitas: Susun Ayat</h2>
+          <p class="text-slate-500 text-sm">Seret potongan ayat sesuai urutan yang benar!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <div>
+          <div class="pill mb-1"><i class="fa-solid fa-layer-group"></i> Susun 5 Ayat Pertama</div>
+          <div class="text-sm text-slate-500">Seret ke kotak sesuai urutan</div>
+        </div>
+        <div class="flex gap-2 items-center">
+          <span class="pill"><i class="fa-solid fa-star text-yellow-500"></i><span id="dragScore">0</span></span>
+          <button onclick="resetDrag()" class="btn btn-ghost" style="padding:.5rem .9rem;min-height:44px"><i class="fa-solid fa-rotate-right"></i> Ulangi</button>
+        </div>
+      </div>
+
+      <div id="dropZones" class="space-y-3 mb-5">
+        <!-- generated -->
+      </div>
+
+      <div>
+        <div class="text-sm font-bold text-slate-600 mb-2"><i class="fa-solid fa-hand-pointer"></i> Potongan Ayat (seret ke atas):</div>
+        <div id="dragItems" class="flex flex-wrap gap-2">
+          <!-- generated -->
+        </div>
+      </div>
+
+      <div id="dragFeedback" class="mt-5 hidden"></div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+        <button onclick="show('game')" class="btn btn-primary">Lanjut ke Game <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== GAME (Matching Ayat & Terjemahan) ============== -->
+<section id="game" class="screen">
+  <div class="py-6">
+    <div class="card mb-5">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="mascot" style="width:70px;height:70px;font-size:2rem">🎮</div>
+        <div>
+          <h2 class="display text-2xl text-emerald-800">Game: Cocokkan Ayat</h2>
+          <p class="text-slate-500 text-sm">Pasangkan ayat dengan terjemahannya!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <div class="flex gap-2 flex-wrap">
+          <span class="pill"><i class="fa-solid fa-clock text-blue-500"></i> <span id="matchTimer">0</span>s</span>
+          <span class="pill"><i class="fa-solid fa-link text-purple-500"></i> <span id="matchPairs">0</span>/6</span>
+          <span class="pill"><i class="fa-solid fa-star text-yellow-500"></i> <span id="matchScore">0</span></span>
+        </div>
+        <button onclick="resetMatch()" class="btn btn-ghost" style="padding:.5rem .9rem;min-height:44px"><i class="fa-solid fa-rotate-right"></i></button>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-3">
+        <div>
+          <div class="text-sm font-bold text-emerald-700 mb-2"><i class="fa-solid fa-book-quran"></i> Ayat</div>
+          <div id="matchLeft" class="space-y-2"></div>
+        </div>
+        <div>
+          <div class="text-sm font-bold text-blue-700 mb-2"><i class="fa-solid fa-language"></i> Terjemahan</div>
+          <div id="matchRight" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <div id="matchFeedback" class="mt-5 hidden"></div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+        <button onclick="show('latihan')" class="btn btn-primary">Lanjut ke Latihan <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== LATIHAN (5 Soal Cepat) ============== -->
+<section id="latihan" class="screen">
+  <div class="py-6">
+    <div class="card mb-5">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="mascot" style="width:70px;height:70px;font-size:2rem">✍️</div>
+        <div>
+          <h2 class="display text-2xl text-emerald-800">Latihan Soal</h2>
+          <p class="text-slate-500 text-sm">5 soal untuk menguji pemahamanmu</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="flex justify-between items-center mb-4">
+        <span class="pill"><i class="fa-solid fa-layer-group"></i> Soal <span id="latQ">1</span>/5</span>
+        <span class="pill"><i class="fa-solid fa-star text-yellow-500"></i> <span id="latScore">0</span></span>
+      </div>
+      <div class="progress-bar mb-5"><div id="latProgress" class="progress-fill" style="width:20%"></div></div>
+
+      <div id="latContainer"></div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+        <button id="latNext" onclick="nextLatihan()" class="btn btn-primary" disabled style="opacity:.5">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== KUIS 15 SOAL ============== -->
+<section id="kuis" class="screen">
+  <div class="py-6">
+    <div class="card mb-5 bg-gradient-to-br from-rose-50 to-orange-50">
+      <div class="flex items-center gap-3">
+        <div class="mascot" style="width:70px;height:70px;font-size:2rem">📝</div>
+        <div class="flex-1">
+          <h2 class="display text-2xl text-rose-800">Kuis Akhir</h2>
+          <p class="text-slate-600 text-sm">15 soal pilihan ganda • Waktu: 15 menit</p>
+        </div>
+        <div class="text-right">
+          <div class="text-2xl font-bold text-rose-700" id="quizTimer">15:00</div>
+          <div class="text-xs text-slate-500">Sisa waktu</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
+        <span class="pill"><i class="fa-solid fa-circle-question"></i> Soal <span id="qNum">1</span>/15</span>
+        <span class="pill"><i class="fa-solid fa-check-double text-emerald-500"></i> Benar: <span id="qCorrect">0</span></span>
+      </div>
+      <div class="progress-bar mb-5"><div id="qProgress" class="progress-fill" style="width:6.66%"></div></div>
+
+      <div id="quizContainer"></div>
+
+      <div id="quizFeedback" class="mt-4 hidden"></div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="confirmExitQuiz()" class="btn btn-ghost"><i class="fa-solid fa-xmark"></i> Keluar</button>
+        <button id="qNext" onclick="nextQuiz()" class="btn btn-primary" disabled style="opacity:.5">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== HASIL ============== -->
+<section id="hasil" class="screen">
+  <div class="py-6">
+    <div class="card bg-gradient-to-br from-yellow-50 via-emerald-50 to-blue-50 text-center">
+      <div id="trophyIcon" class="text-7xl mb-3 bounce">🏆</div>
+      <h2 id="hasilTitle" class="display text-3xl md:text-4xl text-emerald-800 mb-1">Luar Biasa!</h2>
+      <p id="hasilSubtitle" class="text-slate-600 mb-5">Kamu telah menyelesaikan kuis dengan baik</p>
+
+      <div class="bg-white rounded-2xl p-5 max-w-md mx-auto shadow-lg mb-5">
+        <div class="text-6xl font-bold text-emerald-600" id="finalScore">0</div>
+        <div class="text-slate-500 mb-3">dari 15 soal benar</div>
+        <div class="grid grid-cols-3 gap-2 text-sm">
+          <div class="bg-emerald-50 rounded-lg p-2">
+            <div class="font-bold text-emerald-700" id="correctCount">0</div>
+            <div class="text-xs text-emerald-600"><i class="fa-solid fa-check"></i> Benar</div>
+          </div>
+          <div class="bg-rose-50 rounded-lg p-2">
+            <div class="font-bold text-rose-700" id="wrongCount">0</div>
+            <div class="text-xs text-rose-600"><i class="fa-solid fa-xmark"></i> Salah</div>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-2">
+            <div class="font-bold text-blue-700" id="timeSpent">0s</div>
+            <div class="text-xs text-blue-600"><i class="fa-solid fa-clock"></i> Waktu</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="badgeContainer" class="mb-5">
+        <div class="badge bg-yellow-100 text-yellow-800 text-lg"><i class="fa-solid fa-medal"></i> <span id="badgeName">Pelajar Rajin</span></div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-4 max-w-md mx-auto text-left mb-5">
+        <h4 class="font-bold text-slate-700 mb-2"><i class="fa-solid fa-chart-line text-blue-500"></i> Ringkasan Materi</h4>
+        <ul class="text-sm text-slate-600 space-y-1">
+          <li>✅ Membaca Q.S. Al-A'la dengan tajwid</li>
+          <li>✅ Menulis ayat dengan benar</li>
+          <li>✅ 4 pesan pokok surah</li>
+          <li>✅ Cara menghafal efektif</li>
+        </ul>
+      </div>
+
+      <div id="rekomendasi" class="hidden bg-orange-50 rounded-xl p-4 max-w-md mx-auto mb-5 text-left">
+        <h4 class="font-bold text-orange-800 mb-2"><i class="fa-solid fa-lightbulb"></i> Rekomendasi Belajar</h4>
+        <p class="text-sm text-slate-700">Coba ulangi bagian <b>Materi Pesan Pokok</b> dan <b>Aktivitas Susun Ayat</b> untuk memperkuat pemahamanmu!</p>
+      </div>
+
+      <div class="flex gap-3 justify-center flex-wrap">
+        <button onclick="show('refleksi')" class="btn btn-ghost"><i class="fa-solid fa-heart"></i> Refleksi</button>
+        <button onclick="startQuiz()" class="btn btn-primary"><i class="fa-solid fa-rotate-right"></i> Coba Lagi</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== REFLEKSI ============== -->
+<section id="refleksi" class="screen">
+  <div class="py-6">
+    <div class="card mb-5">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="mascot" style="width:70px;height:70px;font-size:2rem">💭</div>
+        <div>
+          <h2 class="display text-2xl text-emerald-800">Refleksi Diri</h2>
+          <p class="text-slate-500 text-sm">Ceritakan pengalaman belajarmu hari ini</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <h3 class="display text-lg text-emerald-700 mb-3">1. Bagaimana perasaanmu setelah belajar?</h3>
+      <div class="grid grid-cols-5 gap-2" id="feelEmoji">
+        <button onclick="selectFeel(this,'😄','Senang')" class="text-4xl p-3 rounded-xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition">😄</button>
+        <button onclick="selectFeel(this,'🙂','Biasa')" class="text-4xl p-3 rounded-xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition">🙂</button>
+        <button onclick="selectFeel(this,'🤔','Bingung')" class="text-4xl p-3 rounded-xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition">🤔</button>
+        <button onclick="selectFeel(this,'😐','Datar')" class="text-4xl p-3 rounded-xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition">😐</button>
+        <button onclick="selectFeel(this,'😴','Mengantuk')" class="text-4xl p-3 rounded-xl border-2 border-slate-200 hover:border-emerald-500 hover:bg-emerald-50 transition">😴</button>
+      </div>
+      <div id="feelMsg" class="mt-2 text-sm text-slate-600"></div>
+    </div>
+
+    <div class="card mb-4">
+      <h3 class="display text-lg text-emerald-700 mb-3">2. Beri rating materi hari ini</h3>
+      <div class="flex justify-center gap-2" id="ratingStars">
+        <button onclick="setRating(1)" class="star text-4xl">★</button>
+        <button onclick="setRating(2)" class="star text-4xl">★</button>
+        <button onclick="setRating(3)" class="star text-4xl">★</button>
+        <button onclick="setRating(4)" class="star text-4xl">★</button>
+        <button onclick="setRating(5)" class="star text-4xl">★</button>
+      </div>
+      <div id="ratingMsg" class="text-center text-sm text-slate-600 mt-2"></div>
+    </div>
+
+    <div class="card mb-4">
+      <h3 class="display text-lg text-emerald-700 mb-3">3. Apa yang paling kamu sukai?</h3>
+      <textarea id="refLike" rows="2" placeholder="Tulis di sini..."></textarea>
+    </div>
+
+    <div class="card mb-4">
+      <h3 class="display text-lg text-emerald-700 mb-3">4. Bagian mana yang masih sulit?</h3>
+      <textarea id="refHard" rows="2" placeholder="Tulis di sini..."></textarea>
+    </div>
+
+    <div class="card mb-4">
+      <h3 class="display text-lg text-emerald-700 mb-3">5. Apa yang ingin kamu pelajari lagi?</h3>
+      <textarea id="refMore" rows="2" placeholder="Tulis di sini..."></textarea>
+    </div>
+
+    <div class="card mb-4 bg-gradient-to-br from-emerald-50 to-yellow-50">
+      <h3 class="display text-lg text-emerald-700 mb-3"><i class="fa-solid fa-clipboard-check"></i> Self-Assessment Karakter</h3>
+      <div class="space-y-3" id="charAssess">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <span class="text-sm flex-1 min-w-[200px]">Membaca Al-Qur'an setiap selesai salat</span>
+          <div class="flex gap-1">
+            <button onclick="setChar(this,0)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">TP</button>
+            <button onclick="setChar(this,1)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">KD</button>
+            <button onclick="setChar(this,2)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SR</button>
+            <button onclick="setChar(this,3)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SL</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <span class="text-sm flex-1 min-w-[200px]">Mengajarkan orang lain membaca Al-Qur'an</span>
+          <div class="flex gap-1">
+            <button onclick="setChar(this,0)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">TP</button>
+            <button onclick="setChar(this,1)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">KD</button>
+            <button onclick="setChar(this,2)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SR</button>
+            <button onclick="setChar(this,3)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SL</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <span class="text-sm flex-1 min-w-[200px]">Berupaya menghafal surah-surah pendek</span>
+          <div class="flex gap-1">
+            <button onclick="setChar(this,0)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">TP</button>
+            <button onclick="setChar(this,1)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">KD</button>
+            <button onclick="setChar(this,2)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SR</button>
+            <button onclick="setChar(this,3)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SL</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <span class="text-sm flex-1 min-w-[200px]">Mempelajari Al-Qur'an sebagai pedoman hidup</span>
+          <div class="flex gap-1">
+            <button onclick="setChar(this,0)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">TP</button>
+            <button onclick="setChar(this,1)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">KD</button>
+            <button onclick="setChar(this,2)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SR</button>
+            <button onclick="setChar(this,3)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SL</button>
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <span class="text-sm flex-1 min-w-[200px]">Memuliakan & menghormati Al-Qur'an</span>
+          <div class="flex gap-1">
+            <button onclick="setChar(this,0)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">TP</button>
+            <button onclick="setChar(this,1)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">KD</button>
+            <button onclick="setChar(this,2)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SR</button>
+            <button onclick="setChar(this,3)" class="btn btn-ghost" style="padding:.4rem .7rem;min-height:40px;font-size:.8rem">SL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="refleksiResult" class="card bg-emerald-50 hidden mb-4">
+      <h3 class="display text-lg text-emerald-800 mb-2"><i class="fa-solid fa-heart"></i> Terima kasih sudah berbagi!</h3>
+      <p id="refleksiMsg" class="text-slate-700"></p>
+    </div>
+
+    <div class="flex gap-3 justify-between">
+      <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+      <button onclick="submitRefleksi()" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Kirim Refleksi</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PETUNJUK ============== -->
+<section id="petunjuk" class="screen">
+  <div class="py-6">
+    <div class="card">
+      <h2 class="display text-2xl text-emerald-800 mb-4"><i class="fa-solid fa-circle-info text-blue-500"></i> Petunjuk Penggunaan</h2>
+
+      <div class="space-y-3">
+        <div class="bg-emerald-50 rounded-xl p-4">
+          <h3 class="font-bold text-emerald-800 mb-1"><i class="fa-solid fa-house"></i> Beranda</h3>
+          <p class="text-sm text-slate-700">Halaman pembuka berisi sapaan dan menu utama.</p>
+        </div>
+        <div class="bg-blue-50 rounded-xl p-4">
+          <h3 class="font-bold text-blue-800 mb-1"><i class="fa-solid fa-book"></i> Materi</h3>
+          <p class="text-sm text-slate-700">Baca 4 bagian materi: Membaca, Menulis, Pesan Pokok, Menghafal.</p>
+        </div>
+        <div class="bg-yellow-50 rounded-xl p-4">
+          <h3 class="font-bold text-yellow-800 mb-1"><i class="fa-solid fa-bullseye"></i> Aktivitas</h3>
+          <p class="text-sm text-slate-700">Seret ayat ke urutan yang benar.</p>
+        </div>
+        <div class="bg-pink-50 rounded-xl p-4">
+          <h3 class="font-bold text-pink-800 mb-1"><i class="fa-solid fa-gamepad"></i> Game</h3>
+          <p class="text-sm text-slate-700">Cocokkan ayat dengan terjemahannya.</p>
+        </div>
+        <div class="bg-purple-50 rounded-xl p-4">
+          <h3 class="font-bold text-purple-800 mb-1"><i class="fa-solid fa-pen-to-square"></i> Latihan</h3>
+          <p class="text-sm text-slate-700">Latihan 5 soal dengan feedback langsung.</p>
+        </div>
+        <div class="bg-rose-50 rounded-xl p-4">
+          <h3 class="font-bold text-rose-800 mb-1"><i class="fa-solid fa-circle-question"></i> Kuis</h3>
+          <p class="text-sm text-slate-700">15 soal pilihan ganda dengan waktu 15 menit.</p>
+        </div>
+        <div class="bg-orange-50 rounded-xl p-4">
+          <h3 class="font-bold text-orange-800 mb-1"><i class="fa-solid fa-trophy"></i> Hasil</h3>
+          <p class="text-sm text-slate-700">Lihat skor, badge, dan rekomendasi belajarmu.</p>
+        </div>
+        <div class="bg-cyan-50 rounded-xl p-4">
+          <h3 class="font-bold text-cyan-800 mb-1"><i class="fa-solid fa-heart"></i> Refleksi</h3>
+          <p class="text-sm text-slate-700">Ceritakan pengalaman belajarmu hari ini.</p>
+        </div>
+      </div>
+
+      <div class="mt-5 bg-slate-50 rounded-xl p-4">
+        <h4 class="font-bold text-slate-700 mb-2"><i class="fa-solid fa-keyboard"></i> Kontrol</h4>
+        <ul class="text-sm text-slate-600 space-y-1">
+          <li>🖱️ <b>Desktop:</b> Klik tombol & seret dengan mouse</li>
+          <li>📱 <b>Mobile:</b> Tap tombol & tahan-seret dengan jari</li>
+          <li>🎯 <b>FID:</b> Sentuh layar untuk berinteraksi</li>
+        </ul>
+      </div>
+
+      <div class="flex gap-3 mt-5 justify-between">
+        <button onclick="show('menu')" class="btn btn-ghost"><i class="fa-solid fa-arrow-left"></i> Menu</button>
+        <button onclick="show('apersepsi')" class="btn btn-primary">Mulai Belajar <i class="fa-solid fa-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== PENUTUP ============== -->
+<section id="penutup" class="screen">
+  <div class="py-10 text-center">
+    <div class="card bg-gradient-to-br from-emerald-100 via-yellow-50 to-blue-100">
+      <div class="text-7xl mb-4 bounce">🎉</div>
+      <h2 class="display text-3xl md:text-4xl text-emerald-800 mb-2">MasyaAllah, Hebat!</h2>
+      <p class="text-lg text-slate-700 max-w-xl mx-auto mb-4">
+        Kamu telah menyelesaikan pembelajaran <b>Surah Al-A'la</b> dengan baik. Semoga ilmu yang didapat bermanfaat dan menjadi bekal di dunia dan akhirat.
+      </p>
+
+      <div class="bg-white rounded-2xl p-5 max-w-md mx-auto mb-5">
+        <div class="arabic text-3xl mb-2">بَارَكَ اللهُ فِيْكَ</div>
+        <div class="text-slate-600 text-sm">Semoga Allah memberkahimu</div>
+      </div>
+
+      <div class="bg-yellow-50 rounded-xl p-4 max-w-md mx-auto mb-5 text-left">
+        <h4 class="font-bold text-yellow-900 mb-2"><i class="fa-solid fa-star text-yellow-500"></i> Pesan Ahmad</h4>
+        <p class="text-sm text-slate-700">"Jangan lupa amalkan pesan-pesan Surah Al-A'la dalam kehidupan sehari-hari ya! Rajin bertasbih, bersyukur, dan jangan terlalu mengejar dunia."</p>
+      </div>
+
+      <div class="flex gap-3 justify-center flex-wrap">
+        <button onclick="resetAll()" class="btn btn-ghost"><i class="fa-solid fa-rotate-right"></i> Ulangi Media</button>
+        <button onclick="show('menu')" class="btn btn-primary"><i class="fa-solid fa-house"></i> Kembali ke Menu</button>
+      </div>
+
+      <div class="mt-8 pt-5 border-t border-slate-200">
+        <p class="text-sm text-slate-500">Media Pembelajaran Interaktif PAI Kelas 6</p>
+        <p class="font-bold text-emerald-700">M. Ripani, S.Pd</p>
+        <p class="text-xs text-slate-400">© 2026 • Bab 6 Mengaji Al-Qur'an Surah Al-A'la</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Modal konfirmasi keluar kuis -->
+<div id="exitModal" class="modal-bg">
+  <div class="modal">
+    <h3 class="display text-xl text-rose-700 mb-2"><i class="fa-solid fa-triangle-exclamation"></i> Keluar dari Kuis?</h3>
+    <p class="text-slate-600 mb-5">Progres kuis kamu akan hilang. Yakin ingin keluar?</p>
+    <div class="flex gap-2 justify-end">
+      <button onclick="closeExitModal()" class="btn btn-ghost">Batal</button>
+      <button onclick="confirmExit()" class="btn btn-primary" style="background:linear-gradient(135deg,#EF4444,#B91C1C)">Keluar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 hidden font-semibold"></div>
+
+<script>
+/* ===================== STATE ===================== */
+const state = {
+  coins: parseInt(localStorage.getItem('coins')||'0'),
+  materiDone: JSON.parse(localStorage.getItem('materiDone')||'[false,false,false,false]'),
+  quizBest: parseInt(localStorage.getItem('quizBest')||'0'),
+  quizAnswers: [],
+  quizIndex: 0,
+  quizCorrect: 0,
+  quizStart: null,
+  quizTimer: null,
+  latIndex: 0,
+  latScore: 0,
+  latAnswered: false,
+  matchSelected: null,
+  matchPairs: 0,
+  matchScore: 0,
+  matchTimer: 0,
+  matchInterval: null,
+  dragPlaced: [],
+  dragScore: 0
+};
+
+/* ===================== NAVIGATION ===================== */
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.getElementById('topbar').style.display = (id==='cover')?'none':'block';
+  if(id==='hasil') renderHasil();
+  if(id==='menu') renderMenu();
+  if(id==='aktivitas') initDrag();
+  if(id==='game') initMatch();
+  if(id==='latihan') initLatihan();
+}
+function goHome(){ show('menu'); }
+function startLearning(){ show('apersepsi'); }
+
+/* ===================== TOAST & COINS ===================== */
+function toast(msg,dur=2200){
+  const t = document.getElementById('toast');
+  t.innerHTML = msg;
+  t.classList.remove('hidden');
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(()=>t.classList.add('hidden'),dur);
+}
+function addCoins(n){
+  state.coins += n;
+  localStorage.setItem('coins',state.coins);
+  document.getElementById('totalCoins').textContent = state.coins;
+}
+
+/* ===================== MENU PROGRESS ===================== */
+function renderMenu(){
+  const done = state.materiDone.filter(Boolean).length;
+  const pct = Math.round((done/4)*100);
+  document.getElementById('menuProgress').style.width = pct+'%';
+  document.getElementById('progressText').textContent = `${done} dari 4 materi selesai`;
+  document.getElementById('progressPct').textContent = pct+'%';
+  document.getElementById('totalCoins').textContent = state.coins;
+}
+function completeMateri(){
+  state.materiDone = [true,true,true,true];
+  localStorage.setItem('materiDone',JSON.stringify(state.materiDone));
+  addCoins(10);
+  toast('🎉 Semua materi selesai! +10 koin');
+}
+
+/* ===================== MATERI TABS ===================== */
+function setMateriTab(i){
+  const tabs = document.querySelectorAll('#materiTabs .tab');
+  tabs.forEach((t,idx)=>t.classList.toggle('active',idx===i));
+  document.querySelectorAll('.materiPane').forEach((p,idx)=>p.style.display = idx===i?'block':'none');
+  state.materiDone[i] = true;
+  localStorage.setItem('materiDone',JSON.stringify(state.materiDone));
+}
+
+/* ===================== DRAG & DROP (AKTIVITAS) ===================== */
+const dragAyat = [
+  {id:1, ar:'سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى', idAr:'ayat1'},
+  {id:2, ar:'الَّذِي خَلَقَ فَسَوَّىٰ', idAr:'ayat2'},
+  {id:3, ar:'وَالَّذِي قَدَّرَ فَهَدَىٰ', idAr:'ayat3'},
+  {id:4, ar:'وَالَّذِي أَخْرَجَ الْمَرْعَىٰ', idAr:'ayat4'},
+  {id:5, ar:'فَجَعَلَهُ غُثَاءً أَحْوَىٰ', idAr:'ayat5'}
+];
+function shuffleArray(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);}
+
+function initDrag(){
+  state.dragPlaced = new Array(5).fill(null);
+  state.dragScore = 0;
+  document.getElementById('dragScore').textContent = '0';
+  document.getElementById('dragFeedback').classList.add('hidden');
+
+  const zonesEl = document.getElementById('dropZones');
+  zonesEl.innerHTML = '';
+  dragAyat.forEach((_,i)=>{
+    const div = document.createElement('div');
+    div.className = 'drop-zone';
+    div.dataset.idx = i;
+    div.innerHTML = `<span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shrink-0">${i+1}</span><span class="text-sm text-slate-400 italic">Letakkan ayat ke-${i+1} di sini</span>`;
+    div.addEventListener('dragover',e=>{e.preventDefault();div.classList.add('over')});
+    div.addEventListener('dragleave',()=>div.classList.remove('over'));
+    div.addEventListener('drop',e=>{
+      e.preventDefault();div.classList.remove('over');
+      const id = parseInt(e.dataTransfer.getData('text/plain'));
+      handleDrop(i,id);
+    });
+    // Touch support
+    div.addEventListener('click',()=>{
+      if(state.dragPending!==undefined){
+        handleDrop(i,state.dragPending);
+        state.dragPending=undefined;
+      }
+    });
+    zonesEl.appendChild(div);
+  });
+
+  const itemsEl = document.getElementById('dragItems');
+  itemsEl.innerHTML = '';
+  shuffleArray(dragAyat).forEach(a=>{
+    const el = document.createElement('div');
+    el.className = 'drag-item arabic';
+    el.style.fontSize='1.3rem';
+    el.draggable = true;
+    el.dataset.id = a.id;
+    el.textContent = a.ar;
+    el.addEventListener('dragstart',e=>{
+      e.dataTransfer.setData('text/plain',a.id);
+      el.classList.add('dragging');
+    });
+    el.addEventListener('dragend',()=>el.classList.remove('dragging'));
+    // Touch/click fallback
+    el.addEventListener('click',()=>{
+      document.querySelectorAll('.drag-item').forEach(x=>x.style.outline='');
+      el.style.outline='3px solid var(--gold)';
+      state.dragPending = a.id;
+      toast('Klik kotak tujuan untuk meletakkan ayat');
+    });
+    itemsEl.appendChild(el);
+  });
+}
+
+function handleDrop(zoneIdx, ayatId){
+  const correct = dragAyat[zoneIdx].id;
+  const zone = document.querySelectorAll('.drop-zone')[zoneIdx];
+  const item = document.querySelector(`.drag-item[data-id="${ayatId}"]`);
+  if(!item) return;
+
+  if(ayatId === correct){
+    zone.innerHTML = `<span class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shrink-0">${zoneIdx+1}</span><span class="arabic" style="font-size:1.3rem">${dragAyat[zoneIdx].ar}</span><i class="fa-solid fa-check-circle text-emerald-500 text-xl ml-auto"></i>`;
+    zone.style.borderColor = 'var(--correct)';
+    zone.style.background = '#D1FAE5';
+    item.remove();
+    state.dragPlaced[zoneIdx] = ayatId;
+    state.dragScore += 20;
+    document.getElementById('dragScore').textContent = state.dragScore;
+    addCoins(2);
+    if(state.dragPlaced.every(x=>x!==null)){
+      const fb = document.getElementById('dragFeedback');
+      fb.classList.remove('hidden');
+      fb.innerHTML = `<div class="bg-emerald-100 border-2 border-emerald-400 rounded-xl p-4 text-center pop">
+        <div class="text-4xl mb-2">🎉</div>
+        <h4 class="font-bold text-emerald-800">Sempurna!</h4>
+        <p class="text-sm text-emerald-700">Semua ayat tersusun dengan benar! +10 koin bonus</p>
+      </div>`;
+      addCoins(10);
+      launchConfetti();
+    }
+  } else {
+    zone.classList.add('shake');
+    setTimeout(()=>zone.classList.remove('shake'),400);
+    toast('❌ Urutan belum tepat, coba lagi ya!');
+  }
+}
+function resetDrag(){ initDrag(); }
+
+/* ===================== MATCHING GAME ===================== */
+const matchData = [
+  {id:1, ar:'سَبِّحِ اسْمَ رَبِّكَ الْأَعْلَى', id:'Sucikanlah nama Tuhanmu Yang Maha Tinggi'},
+  {id:2, ar:'الَّذِي خَلَقَ فَسَوَّىٰ', id:'Yang menciptakan & menyempurnakan'},
+  {id:3, ar:'وَالَّذِي قَدَّرَ فَهَدَىٰ', id:'Yang menentukan & memberi petunjuk'},
+  {id:4, ar:'سَنُقْرِئُكَ فَلَا تَنسَىٰ', id:'Kami jadikan kamu tidak lupa'},
+  {id:5, ar:'فَذَكِّرْ إِن نَّفَعَتِ الذِّكْرَىٰ', id:'Berilah peringatan, karena peringatan bermanfaat'},
+  {id:6, ar:'قَدْ أَفْلَحَ مَن تَزَكَّىٰ', id:'Sungguh beruntung orang yang menyucikan diri'}
+];
+
+function initMatch(){
+  state.matchSelected = null;
+  state.matchPairs = 0;
+  state.matchScore = 0;
+  state.matchTimer = 0;
+  clearInterval(state.matchInterval);
+  document.getElementById('matchTimer').textContent = '0';
+  document.getElementById('matchPairs').textContent = '0';
+  document.getElementById('matchScore').textContent = '0';
+  document.getElementById('matchFeedback').classList.add('hidden');
+
+  const left = document.getElementById('matchLeft');
+  const right = document.getElementById('matchRight');
+  left.innerHTML = '';
+  right.innerHTML = '';
+
+  const leftOrder = shuffleArray([...matchData]);
+  const rightOrder = shuffleArray([...matchData]);
+
+  leftOrder.forEach(m=>{
+    const el = document.createElement('div');
+    el.className = 'match-card arabic';
+    el.style.fontSize='1.1rem';
+    el.dataset.id = m.id;
+    el.dataset.side = 'L';
+    el.textContent = m.ar;
+    el.addEventListener('click',()=>selectMatch(el));
+    left.appendChild(el);
+  });
+
+  rightOrder.forEach(m=>{
+    const el = document.createElement('div');
+    el.className = 'match-card';
+    el.style.fontSize='.9rem';
+    el.dataset.id = m.id;
+    el.dataset.side = 'R';
+    el.textContent = m.id;
+    el.addEventListener('click',()=>selectMatch(el));
+    right.appendChild(el);
+  });
+
+  state.matchInterval = setInterval(()=>{
+    state.matchTimer++;
+    document.getElementById('matchTimer').textContent = state.matchTimer;
+  },1000);
+}
+
+function selectMatch(el){
+  if(el.classList.contains('matched')) return;
+
+  if(!state.matchSelected){
+    el.classList.add('selected');
+    state.matchSelected = el;
+    return;
+  }
+
+  if(state.matchSelected === el){
+    el.classList.remove('selected');
+    state.matchSelected = null;
+    return;
+  }
+
+  if(state.matchSelected.dataset.side === el.dataset.side){
+    state.matchSelected.classList.remove('selected');
+    el.classList.add('selected');
+    state.matchSelected = el;
+    return;
+  }
+
+  // Check match
+  if(state.matchSelected.dataset.id === el.dataset.id){
+    state.matchSelected.classList.remove('selected');
+    state.matchSelected.classList.add('matched');
+    el.classList.add('matched');
+    state.matchPairs++;
+    state.matchScore += 15;
+    addCoins(3);
+    document.getElementById('matchPairs').textContent = state.matchPairs;
+    document.getElementById('matchScore').textContent = state.matchScore;
+    state.matchSelected = null;
+
+    if(state.matchPairs === matchData.length){
+      clearInterval(state.matchInterval);
+      const bonus = Math.max(0, 60 - state.matchTimer);
+      state.matchScore += bonus;
+      document.getElementById('matchScore').textContent = state.matchScore;
+      addCoins(10);
+      const fb = document.getElementById('matchFeedback');
+      fb.classList.remove('hidden');
+      fb.innerHTML = `<div class="bg-emerald-100 border-2 border-emerald-400 rounded-xl p-4 text-center pop">
+        <div class="text-4xl mb-2">🎊</div>
+        <h4 class="font-bold text-emerald-800">Semua Cocok!</h4>
+        <p class="text-sm text-emerald-700">Waktu: ${state.matchTimer}s • Skor: ${state.matchScore}</p>
+      </div>`;
+      launchConfetti();
+    }
+  } else {
+    el.classList.add('shake');
+    state.matchSelected.classList.add('shake');
+    setTimeout(()=>{
+      el.classList.remove('shake','selected');
+      state.matchSelected.classList.remove('shake','selected');
+      state.matchSelected = null;
+    },400);
+    toast('❌ Belum cocok, coba lagi!');
+  }
+}
+function resetMatch(){ initMatch(); }
+
+/* ===================== LATIHAN (5 SOAL) ===================== */
+const latihanSoal = [
+  {q:"Surah Al-A'la terdiri dari berapa ayat?", opts:['17 ayat','18 ayat','19 ayat','20 ayat'], ans:2, fb:'Benar! Surah Al-A\'la terdiri dari 19 ayat.'},
+  {q:"Arti kata 'Al-A\'la' adalah...", opts:['Yang Maha Suci','Yang Paling Tinggi','Yang Maha Perkasa','Yang Maha Tahu'], ans:1, fb:'Benar! Al-A\'la artinya Yang Paling Tinggi.'},
+  {q:"Surah Al-A\'la termasuk golongan surah...", opts:['Madaniyah','Makiyah','Misriyah','Syamiyah'], ans:1, fb:'Benar! Surah Al-A\'la adalah surah Makiyah.'},
+  {q:"Rasulullah ﷺ sering membaca surah Al-A\'la pada salat...", opts:['Salat Subuh','Salat Dzuhur','Salat Jum\'at & Hari Raya','Salat Ashar'], ans:2, fb:'Benar! Sering dibaca saat salat Jum\'at, Hari Raya, dan Witir.'},
+  {q:"'Makharijul huruf' artinya...", opts:['Bentuk huruf','Tempat keluarnya huruf','Panjang pendek huruf','Hukum tajwid'], ans:1, fb:'Benar! Makharijul huruf adalah tempat keluarnya huruf.'}
+];
+
+function initLatihan(){
+  state.latIndex = 0;
+  state.latScore = 0;
+  state.latAnswered = false;
+  renderLatihan();
+}
+function renderLatihan(){
+  const s = latihanSoal[state.latIndex];
+  document.getElementById('latQ').textContent = state.latIndex+1;
+  document.getElementById('latScore').textContent = state.latScore;
+  document.getElementById('latProgress').style.width = ((state.latIndex+1)/5*100)+'%';
+  const c = document.getElementById('latContainer');
+  c.innerHTML = `
+    <h3 class="display text-lg text-emerald-800 mb-4">${s.q}</h3>
+    <div id="latOpts" class="space-y-2"></div>
+    <div id="latFb" class="mt-4 hidden"></div>
+  `;
+  const optsEl = document.getElementById('latOpts');
+  s.opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.innerHTML = `<span class="font-bold mr-2">${String.fromCharCode(65+i)}.</span>${o}`;
+    b.addEventListener('click',()=>answerLat(i,b));
+    optsEl.appendChild(b);
+  });
+  document.getElementById('latNext').disabled = true;
+  document.getElementById('latNext').style.opacity = '.5';
+  state.latAnswered = false;
+}
+function answerLat(i,btn){
+  if(state.latAnswered) return;
+  state.latAnswered = true;
+  const s = latihanSoal[state.latIndex];
+  const opts = document.querySelectorAll('#latOpts .quiz-opt');
+  opts.forEach(o=>o.disabled=true);
+  const fb = document.getElementById('latFb');
+  fb.classList.remove('hidden');
+  if(i===s.ans){
+    btn.classList.add('correct');
+    btn.innerHTML = `<i class="fa-solid fa-check-circle"></i> ${btn.innerHTML}`;
+    state.latScore += 20;
+    addCoins(2);
+    fb.innerHTML = `<div class="bg-emerald-100 border-l-4 border-emerald-500 rounded-lg p-3"><b class="text-emerald-800">✓ Benar!</b> ${s.fb}</div>`;
+  } else {
+    btn.classList.add('wrong','shake');
+    btn.innerHTML = `<i class="fa-solid fa-xmark-circle"></i> ${btn.innerHTML}`;
+    opts[s.ans].classList.add('correct');
+    fb.innerHTML = `<div class="bg-rose-100 border-l-4 border-rose-500 rounded-lg p-3"><b class="text-rose-800">✗ Belum tepat.</b> ${s.fb}</div>`;
+  }
+  document.getElementById('latNext').disabled = false;
+  document.getElementById('latNext').style.opacity = '1';
+}
+function nextLatihan(){
+  state.latIndex++;
+  if(state.latIndex >= latihanSoal.length){
+    toast(`Latihan selesai! Skor: ${state.latScore}/100`);
+    show('kuis')!==undefined;
+    startQuiz();
+    return;
+  }
+  renderLatihan();
+}
+
+/* ===================== KUIS (15 SOAL) ===================== */
+const quizBank = [
+  {q:"Nama surah Al-A'la diambil dari ayat pertama yang artinya...", opts:['Maha Mulia','Maha Tinggi','Maha Agung','Maha Sempurna'], ans:1, fb:"Al-A'la artinya Yang Paling Tinggi."},
+  {q:"Q.S. Al-A'la sering dibacakan Rasulullah ﷺ ketika...", opts:['Salat sunah','Salat wajib','Salat Jum\'at','Salat rawatib'], ans:2, fb:'Beliau ﷺ sering membacanya saat salat Jum\'at, Hari Raya, dan Witir.'},
+  {q:"Makharijul huruf artinya...", opts:['Hukum tajwid','Bentuk huruf','Tempat keluarnya huruf','Panjang pendek huruf'], ans:2, fb:'Makharijul huruf = tempat keluarnya huruf dari mulut/tenggorokan.'},
+  {q:"Lanjutan ayat: فَجَعَلَهُ ... أَحْوَىٰ", opts:['اهْوَىٰ','هدَفَ','زَكَّتَ','احْوَىٰ'], ans:3, fb:'Jawaban benar: غُثَاءً أَحْوَىٰ (kehitam-hitaman).'},
+  {q:"Kesalahan pada ayat: وَالَّذِي قَدَّرَ فَحَدَى terdapat pada...", opts:['وَالَّذِي','قَدَّرَ','فَحَدَى','Semua benar'], ans:2, fb:'Seharusnya فَهَدَىٰ (dengan huruf هـ), bukan فَحَدَى (dengan ح).'},
+  {q:"Terjemahan: وَالْآخِرَةُ خَيْرٌ وَأَبْقَىٰ", opts:['Kehidupan akhirat lebih baik dan lebih kekal','Beruntung orang yang menyucikan diri','Tidak mati dan tidak hidup di neraka','Kamu memilih kehidupan dunia'], ans:0, fb:'Artinya: Dan kehidupan akhirat lebih baik dan lebih kekal.'},
+  {q:"Pesan pokok Q.S. Al-A'la ayat 1 adalah...", opts:['Perintah bertasbih & berzikir','Perintah berdakwah','Larangan syirik','Larangan cinta dunia'], ans:0, fb:'Ayat 1 berisi perintah bertasbih menyucikan nama Allah.'},
+  {q:"Perintah berdakwah sering disebut dengan istilah...", opts:['Al-żikr','Talabul ilmi','Tarbiyatul islamiyah','Amar makruf nahi mungkar'], ans:3, fb:'Amar makruf nahi mungkar = mengajak kebaikan & mencegah kemungkaran.'},
+  {q:"Pernyataan yang sesuai pesan pokok Q.S. Al-A'la adalah...", opts:['1 & 2','2 & 3','3 & 4','4 & 5'], ans:0, fb:'Perintah bertasbih (1) dan berdakwah (2) sesuai pesan pokok surah.'},
+  {q:"Berikut bukan pesan pokok Q.S. Al-A'la, yaitu...", opts:['Perintah bertasbih','Perintah berdakwah','Larangan syirik','Larangan cinta dunia berlebihan'], ans:2, fb:'Larangan syirik tidak disebutkan eksplisit di surah ini.'},
+  {q:"Q.S. Al-A'la diturunkan setelah surah...", opts:['Al-Fatihah','Al-Baqarah','At-Takwir','Yasin'], ans:2, fb:'Surah Al-A\'la diturunkan setelah surah At-Takwir.'},
+  {q:"Q.S. Al-A'la termasuk surah...", opts:['Makiyah','Madaniyah','Hadzramiyah','Misriyah'], ans:0, fb:'Termasuk surah Makiyah (diturunkan di Mekah).'},
+  {q:"Orang yang beruntung menurut Q.S. Al-A'la adalah yang...", opts:['Kaya raya','Menyucikan diri','Terkenal','Banyak anak'], ans:1, fb:'قَدْ أَفْلَحَ مَن تَزَكَّىٰ - Beruntung orang yang menyucikan diri.'},
+  {q:"Kehidupan akhirat dibandingkan dunia adalah...", opts:['Lebih pendek','Sama saja','Lebih baik dan lebih kekal','Lebih sulit'], ans:2, fb:'Akhirat lebih baik dan lebih kekal (خَيْرٌ وَأَبْقَى).'},
+  {q:"Surah Al-A'la juga terdapat dalam kitab...", opts:['Nabi Adam & Nuh','Nabi Ibrahim & Musa','Nabi Isa & Daud','Nabi Yusuf & Yunus'], ans:1, fb:'Disebutkan di ayat 18-19: Kitab Ibrahim dan Musa.'}
+];
+
+function startQuiz(){
+  state.quizAnswers = [];
+  state.quizIndex = 0;
+  state.quizCorrect = 0;
+  state.quizStart = Date.now();
+  document.getElementById('qCorrect').textContent = '0';
+  // Shuffle quiz
+  state.quizOrder = shuffleArray([...quizBank]).slice(0,15);
+  show('kuis');
+  renderQuiz();
+  startQuizTimer();
+}
+
+function startQuizTimer(){
+  clearInterval(state.quizTimer);
+  let timeLeft = 15*60;
+  const t = document.getElementById('quizTimer');
+  state.quizTimer = setInterval(()=>{
+    timeLeft--;
+    const m = Math.floor(timeLeft/60), s = timeLeft%60;
+    t.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+    if(timeLeft<=60) t.classList.add('text-red-600');
+    if(timeLeft<=0){
+      clearInterval(state.quizTimer);
+      finishQuiz();
+    }
+  },1000);
+}
+
+function renderQuiz(){
+  const q = state.quizOrder[state.quizIndex];
+  document.getElementById('qNum').textContent = state.quizIndex+1;
+  document.getElementById('qProgress').style.width = ((state.quizIndex+1)/15*100)+'%';
+  const c = document.getElementById('quizContainer');
+  c.innerHTML = `
+    <div class="bg-slate-50 rounded-xl p-4 mb-4">
+      <div class="pill mb-2"><i class="fa-solid fa-circle-question"></i> Soal ${state.quizIndex+1}</div>
+      <h3 class="display text-lg text-emerald-800">${q.q}</h3>
+    </div>
+    <div id="qOpts" class="space-y-2"></div>
+  `;
+  const optsEl = document.getElementById('qOpts');
+  q.opts.forEach((o,i)=>{
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.innerHTML = `<span class="font-bold mr-2">${String.fromCharCode(65+i)}.</span>${o}`;
+    b.addEventListener('click',()=>answerQuiz(i,b));
+    optsEl.appendChild(b);
+  });
+  document.getElementById('quizFeedback').classList.add('hidden');
+  document.getElementById('qNext').disabled = true;
+  document.getElementById('qNext').style.opacity = '.5';
+}
+
+function answerQuiz(i,btn){
+  const btns = document.querySelectorAll('#qOpts .quiz-opt');
+  if(Array.from(btns).some(b=>b.disabled)) return;
+  btns.forEach(b=>b.disabled=true);
+  const q = state.quizOrder[state.quizIndex];
+  const fb = document.getElementById('quizFeedback');
+  fb.classList.remove('hidden');
+  state.quizAnswers.push({q:q.q, user:i, correct:q.ans});
+  if(i===q.ans){
+    btn.classList.add('correct');
+    state.quizCorrect++;
+    addCoins(3);
+    fb.innerHTML = `<div class="bg-emerald-100 border-l-4 border-emerald-500 rounded-lg p-3 pop"><b class="text-emerald-800"><i class="fa-solid fa-check-circle"></i> Benar!</b> ${q.fb}</div>`;
+  } else {
+    btn.classList.add('wrong','shake');
+    btns[q.ans].classList.add('correct');
+    fb.innerHTML = `<div class="bg-rose-100 border-l-4 border-rose-500 rounded-lg p-3"><b class="text-rose-800"><i class="fa-solid fa-xmark-circle"></i> Belum tepat.</b> ${q.fb}</div>`;
+  }
+  document.getElementById('qCorrect').textContent = state.quizCorrect;
+  document.getElementById('qNext').disabled = false;
+  document.getElementById('qNext').style.opacity = '1';
+}
+
+function nextQuiz(){
+  state.quizIndex++;
+  if(state.quizIndex >= state.quizOrder.length){
+    finishQuiz();
+    return;
+  }
+  renderQuiz();
+}
+
+function finishQuiz(){
+  clearInterval(state.quizTimer);
+  const timeTaken = Math.round((Date.now() - state.quizStart)/1000);
+  const score = state.quizCorrect;
+  if(score > state.quizBest){
+    state.quizBest = score;
+    localStorage.setItem('quizBest',score);
+  }
+  localStorage.setItem('lastQuiz', JSON.stringify({score, total:15, time:timeTaken, correct:state.quizCorrect, wrong:15-state.quizCorrect}));
+  show('hasil');
+}
+
+function confirmExitQuiz(){ document.getElementById('exitModal').classList.add('show'); }
+function closeExitModal(){ document.getElementById('exitModal').classList.remove('show'); }
+function confirmExit(){ clearInterval(state.quizTimer); closeExitModal(); show('menu'); }
+
+/* ===================== HASIL ===================== */
+function renderHasil(){
+  const data = JSON.parse(localStorage.getItem('lastQuiz')||'{"score":0,"total":15,"time":0,"correct":0,"wrong":0}');
+  const s = data.score||0, total = data.total||15;
+  document.getElementById('finalScore').textContent = s;
+  document.getElementById('correctCount').textContent = data.correct||0;
+  document.getElementById('wrongCount').textContent = data.wrong||0;
+  const m = Math.floor((data.time||0)/60), sec = (data.time||0)%60;
+  document.getElementById('timeSpent').textContent = m>0?`${m}m ${sec}s`:`${sec}s`;
+
+  let title,subtitle,trophy,badge;
+  if(s>=13){title='Luar Biasa! 🌟';subtitle='Kamu menguasai materi dengan sangat baik!';trophy='🏆';badge='Juara Al-A\'la';}
+  else if(s>=10){title='Hebat! 👏';subtitle='Pemahamanmu sudah sangat baik!';trophy='🥇';badge='Pelajar Rajin';}
+  else if(s>=7){title='Bagus! 💪';subtitle='Terus tingkatkan pemahamanmu ya!';trophy='🥈';badge='Pejuang Ilmu';}
+  else if(s>=4){title='Tetap Semangat! 🔥';subtitle='Coba pelajari lagi materinya ya!';trophy='🎯';badge='Pantang Menyerah';}
+  else{title='Ayo Belajar Lagi! 📚';subtitle='Jangan putus asa, baca ulang materinya ya!';trophy='💪';badge='Pejuang Tangguh';}
+
+  document.getElementById('hasilTitle').textContent = title;
+  document.getElementById('hasilSubtitle').textContent = subtitle;
+  document.getElementById('trophyIcon').textContent = trophy;
+  document.getElementById('badgeName').textContent = badge;
+  document.getElementById('rekomendasi').classList.toggle('hidden', s>=10);
+}
+
+/* ===================== REFLEKSI ===================== */
+let feelValue=null, ratingValue=0;
+function selectFeel(btn,emoji,label){
+  document.querySelectorAll('#feelEmoji button').forEach(b=>{b.classList.remove('border-emerald-500','bg-emerald-50');b.classList.add('border-slate-200')});
+  btn.classList.remove('border-slate-200');
+  btn.classList.add('border-emerald-500','bg-emerald-50');
+  feelValue = label;
+  document.getElementById('feelMsg').innerHTML = `Kamu merasa: <b>${emoji} ${label}</b>`;
+}
+function setRating(n){
+  ratingValue = n;
+  document.querySelectorAll('#ratingStars .star').forEach((s,i)=>{
+    s.classList.toggle('filled', i<n);
+  });
+  const msgs = ['','Kurang menarik 😔','Cukup baik 🙂','Bagus! 👍','Sangat menyenangkan! 😄','Luar biasa! 🌟'];
+  document.getElementById('ratingMsg').textContent = msgs[n];
+}
+function setChar(btn,val){
+  const group = btn.parentElement;
+  group.querySelectorAll('button').forEach(b=>{b.classList.remove('btn-primary');b.classList.add('btn-ghost');b.style.background='';b.style.color=''});
+  btn.classList.remove('btn-ghost');btn.classList.add('btn-primary');
+  btn.style.background='var(--primary)';btn.style.color='#fff';
+}
+function submitRefleksi(){
+  const like = document.getElementById('refLike').value;
+  const hard = document.getElementById('refHard').value;
+  const more = document.getElementById('refMore').value;
+  if(!feelValue || ratingValue===0){
+    toast('⚠️ Pilih emoji & rating dulu ya!');
+    return;
+  }
+  const r = document.getElementById('refleksiResult');
+  r.classList.remove('hidden');
+  let msg = `Terima kasih sudah berbagi! `;
+  if(feelValue==='Senang') msg += 'Senang sekali kamu menikmati pembelajaran hari ini. ';
+  else if(feelValue==='Bingung') msg += 'Jangan khawatir, coba baca ulang bagian yang membingungkan ya. ';
+  else msg += `Perasaanmu ${feelValue.toLowerCase()}, itu wajar kok. `;
+  if(ratingValue>=4) msg += 'Alhamdulillah kamu suka dengan materinya! ';
+  else msg += 'Kami akan terus meningkatkan kualitas materi ini. ';
+  msg += 'Semangat terus belajar Al-Qur\'an! 🌟';
+  document.getElementById('refleksiMsg').textContent = msg;
+  addCoins(5);
+  toast('✨ Refleksi terkirim! +5 koin');
+  r.scrollIntoView({behavior:'smooth'});
+}
+
+/* ===================== UTILS ===================== */
+function launchConfetti(){
+  const colors = ['#10B981','#F59E0B','#3B82F6','#EC4899','#8B5CF6'];
+  for(let i=0;i<40;i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.left = Math.random()*100+'vw';
+    c.style.top = '-20px';
+    c.style.borderRadius = Math.random()>.5?'50%':'2px';
+    document.body.appendChild(c);
+    const duration = 2000 + Math.random()*1500;
+    c.animate([
+      {transform:'translateY(0) rotate(0deg)',opacity:1},
+      {transform:`translateY(100vh) rotate(${Math.random()*720}deg)`,opacity:0}
+    ],{duration,easing:'cubic-bezier(.3,.7,.4,1)'}).onfinish = ()=>c.remove();
+  }
+}
+
+function resetAll(){
+  if(!confirm('Yakin ingin mengulang semua progres?')) return;
+  localStorage.clear();
+  location.reload();
+}
+
+/* ===================== GENERATE IMAGES ===================== */
+async function initImages(){
+  // Generate cover image
+  const coverUrl = await generateImage(
+    "Cheerful flat design illustration for children Islamic education: a happy Indonesian elementary school boy wearing peci (Muslim cap) and white koko shirt, reading an open Al-Quran with glowing light, surrounded by cute mosque silhouette, crescent moon, stars, geometric Islamic patterns, and green nature. Warm cheerful colors (emerald green, gold yellow, sky blue), soft gradient background, educational and friendly style, no text, high quality vector illustration style, child-friendly"
+  );
+  document.getElementById('coverImg').src = coverUrl;
+}
+
+async function generateImage(prompt){
+  try{
+    const result = await window._genImage(prompt);
+    return result;
+  }catch(e){
+    // Fallback SVG
+    return "data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2310B981'/><stop offset='1' stop-color='%23059669'/></linearGradient></defs><rect width='400' height='400' fill='url(%23g)' rx='30'/><text x='200' y='180' text-anchor='middle' font-size='100' fill='white'>📖</text><text x='200' y='260' text-anchor='middle' font-size='32' fill='white' font-family='Arial' font-weight='bold'>Surah Al-A'la</text><text x='200' y='300' text-anchor='middle' font-size='20' fill='white' font-family='Arial'>Kelas 6 SD</text></svg>`);
+  }
+}
+
+/* Image gen hook */
+window._genImage = async (prompt)=>{
+  // Call image_gen tool (handled externally if available)
+  return "data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2310B981'/><stop offset='1' stop-color='%23059669'/></linearGradient></defs><rect width='400' height='400' fill='url(%23g)' rx='30'/><text x='200' y='180' text-anchor='middle' font-size='100' fill='white'>📖</text><text x='200' y='260' text-anchor='middle' font-size='32' fill='white' font-family='Arial' font-weight='bold'>Surah Al-A'la</text><text x='200' y='300' text-anchor='middle' font-size='20' fill='white' font-family='Arial'>Kelas 6 SD</text></svg>`);
+};
+
+/* ===================== INIT ===================== */
+renderMenu();
+// Attempt to generate image via tool (if runtime supports)
+try{
+  if(typeof fetchImage === 'function'){
+    fetchImage("Cheerful flat design illustration for children Islamic education: a happy Indonesian elementary school boy wearing peci (Muslim cap) and white koko shirt, reading an open Al-Quran with glowing light, surrounded by cute mosque silhouette, crescent moon, stars, geometric Islamic patterns, and green nature. Warm cheerful colors, no text").then(url=>{
+      if(url) document.getElementById('coverImg').src = url;
+    });
+  }
+}catch(e){}
+// Fallback cover as SVG
+document.getElementById('coverImg').src = "data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 500'><defs><linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%2334D399'/><stop offset='1' stop-color='%23059669'/></linearGradient><radialGradient id='glow'><stop offset='0' stop-color='%23FCD34D' stop-opacity='.6'/><stop offset='1' stop-color='%23FCD34D' stop-opacity='0'/></radialGradient></defs><rect width='500' height='500' fill='url(%23bg)' rx='40'/><circle cx='400' cy='100' r='80' fill='url(%23glow)'/><circle cx='400' cy='100' r='40' fill='%23FCD34D'/><circle cx='415' cy='90' r='32' fill='%23059669'/><g transform='translate(250 200)'><rect x='-90' y='-30' width='180' height='120' fill='%23FEF3C7' rx='8'/><rect x='-85' y='-25' width='80' height='110' fill='%23FFFBEB'/><rect x='5' y='-25' width='80' height='110' fill='%23FFFBEB'/><line x1='0' y1='-30' x2='0' y2='90' stroke='%23B45309' stroke-width='2'/><text x='-45' y='0' font-family='serif' font-size='20' fill='%23065F46' text-anchor='middle'>سَبِّحِ</text><text x='-45' y='25' font-family='serif' font-size='16' fill='%23065F46' text-anchor='middle'>اسْمَ رَبِّكَ</text><text x='45' y='0' font-family='serif' font-size='20' fill='%23065F46' text-anchor='middle'>الْأَعْلَى</text><text x='45' y='40' font-size='30'>✨</text><text x='-60' y='60' font-size='30'>⭐</text></g><g transform='translate(250 380)'><circle cx='0' cy='0' r='50' fill='%23FCD34D'/><circle cx='0' cy='-5' r='35' fill='%23FEF3C7'/><circle cx='-12' cy='-10' r='4' fill='%231E293B'/><circle cx='12' cy='-10' r='4' fill='%231E293B'/><path d='M-10 5 Q0 15 10 5' stroke='%231E293B' stroke-width='3' fill='none' stroke-linecap='round'/><rect x='-40' y='-50' width='80' height='25' fill='%23065F46' rx='5'/><circle cx='0' cy='-50' r='6' fill='%23FCD34D'/></g><text x='250' y='470' text-anchor='middle' font-size='20' fill='white' font-family='Arial' font-weight='bold'>Mengaji Surah Al-A'la</text></svg>`);
+
+</script>
+</body>
+</html>
